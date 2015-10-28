@@ -1,0 +1,41 @@
+- user client
+- server
+- domain
+
+
+/GET request from user client
+Respone from server loads index.html
+
+/POST request from user enters domain
+Response from server loads loading.html
+  /GET request from server to domain
+  Response from domain provides website
+  Server stores response.body to file
+  upon completion server loads index.html
+
+
+  exports.readListOfUrls = function(){
+  };
+
+  exports.isUrlInList = function(){
+    fs.readFile( filename ,  function (err, data) {
+      if (err) throw err()
+      var string = data.toString();
+      string = string.split('\n')
+    }
+  };
+
+  exports.addUrlToList = function(){
+  fs.writeFile(filename, data[, options], callback)
+  };
+
+  exports.isUrlArchived = function(){
+    fs.readFile -> sites.txt
+      data -> split('\n')
+      indexOf in the array of "www.domain.com"
+  };
+
+
+
+  exports.downloadUrls = function(){
+  };
