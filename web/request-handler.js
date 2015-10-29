@@ -13,7 +13,11 @@ exports.handleRequest = function (req, res) {
 var actions = {
   'GET': function(req, res){
     var done = finalhandler(req, res);
-    httpHelp.serveIndex(req, res,done);
+    if (req.url === '/' || req.url === '/index.html') {
+      httpHelp.serveIndex(req, res, done);
+    } else {
+      //httpHelp.serveAssets()
+    }
   },
   'POST': function(req, res){
   },

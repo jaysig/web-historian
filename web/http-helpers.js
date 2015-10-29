@@ -12,11 +12,17 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
-exports.serveIndex = serveStatic(__dirname + '/public', { 'index' : 'index.html'});
-
-exports.serveAssets = function(res, asset, callback) {
+exports.serveIndex = serveStatic(archive.paths.siteAssets, { 'index' : 'index.html'});
 
 
+exports.serveAssets = function(req, res, asset, callback) {
+
+  var serveArchive = serveStatic(archive.paths.archivedSites, { 'index' : asset});
+
+
+  // fs.readFile(asset, 'utf', function(err, data) {
+  //    exports.sendResponse(res, data, 200);
+  // })
 
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
