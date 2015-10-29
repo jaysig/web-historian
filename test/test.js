@@ -79,6 +79,7 @@ describe("archive helpers", function(){
 
       archive.readListOfUrls(function(urls){
         expect(urls).to.deep.equal(urlArray);
+        console.log(urls +" url test");
         done();
       });
     });
@@ -150,4 +151,3 @@ describe("archive helpers", function(){
     });
   });
 });
-

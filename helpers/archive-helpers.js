@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var fetch = require('../workers/htmlfetcher.js');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -25,17 +26,53 @@ exports.initialize = function(pathsObj){
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
-exports.readListOfUrls = function(){
+exports.readListOfUrls = function(callback){
+  var file = this.paths.list;
+  var sites = [];
+  fs.readFile(file, "utf8", function(err,data){
+    if(err) throw err;
+    sites = data.split("\n");
+    callback(sites); //callback on whole array
+  });
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(site, callback){ //Data is in the argument
+  var file = this.paths.list;
+  var sites = [];
+  fs.readFile(file, "utf8", function(err,data){
+    if(err) throw err;
+    sites = data.split("\n");
+    callback(sites[sites.indexOf(site)]); //Callback on the individual site
+  });
 };
 
-exports.addUrlToList = function(){
+exports.addUrlToList = function(site, callback){
+  var file = this.paths.list;
+  fs.appendFile(file, site, 'utf8', function (err) {
+    if(err) throw err
+    callback(site);
+  });
 };
 
-exports.isUrlArchived = function(){
+exports.isUrlArchived = function(site, callback){
+  var siteLoc = this.paths.archivedSites + "/" + site;
+  fs.stat(siteLoc, function (err, data) { //Check if the file is there archieved
+    callback(siteLoc);
+  });
 };
 
-exports.downloadUrls = function(){
+exports.downloadUrls = function(collection){
+  // var file = this.paths.list;
+  // var sites = [];
+  // fs.readFile(file, "utf8", function(err,data){
+  //   if(err) throw err;
+  //   sites = data.split("\n");
+  //   _.each(sites, function (val) {
+  //     callback(val);
+  //   });
+  // });
+  //run htmlfetcher
+  _.each(collection, function (val) {
+    fetch(val);
+  })
 };
