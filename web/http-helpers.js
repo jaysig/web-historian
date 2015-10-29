@@ -15,14 +15,28 @@ exports.headers = headers = {
 exports.serveIndex = serveStatic(archive.paths.siteAssets, { 'index' : 'index.html'});
 
 
-exports.serveAssets = function(req, res, asset, callback) {
+exports.serveAssets = function( res, asset, callback) {
+  //check public
+  //check archive
+  //serve asset what it is looking for
 
-  var serveArchive = serveStatic(archive.paths.archivedSites, { 'index' : asset});
+  //var serveArchive = serveStatic(archive.paths.archivedSites, { 'index' : asset});
+
+  //serveArchive(req, res, done);
 
 
-  // fs.readFile(asset, 'utf', function(err, data) {
-  //    exports.sendResponse(res, data, 200);
-  // })
+  fs.readFile(archive.paths.siteAssets + '/' + asset, 'utf', function(err, data) {
+      if(err){
+        fs.readFile(archive.paths.archivedSites, 'utf8',function(err, data){
+          if(err){
+            throw err;
+          }
+          callback(data);
+        });
+      }
+      callback(data);
+     //exports.sendResponse(res, data, 200);
+  });
 
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),

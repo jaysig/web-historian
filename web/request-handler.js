@@ -14,8 +14,12 @@ var actions = {
   'GET': function(req, res){
     var done = finalhandler(req, res);
     if (req.url === '/' || req.url === '/index.html') {
-      httpHelp.serveIndex(req, res, done);
+      httpHelp.serveAssets(res,'utf8','index.html',function(data){
+        res.writeHead(200,htmlHelp.headers);
+        res.end(JSON.stringify(data));
+      });
     } else {
+
       //httpHelp.serveAssets()
     }
   },
