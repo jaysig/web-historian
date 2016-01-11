@@ -25,9 +25,9 @@ exports.serveAssets = function( res, asset, callback) {
   //serveArchive(req, res, done);
 
 
-  fs.readFile(archive.paths.siteAssets + '/' + asset, 'utf8', function(err, data) {
+  fs.readFile(archive.paths.siteAssets +  asset, 'utf8', function(err, data) {
       if(err){
-        fs.readFile(archive.paths.archivedSites + "/" + asset, 'utf8',function(err, data){
+        fs.readFile(archive.paths.archivedSites + asset, 'utf8',function(err, data){
           if(err){
             // console.log('error');
             throw err;

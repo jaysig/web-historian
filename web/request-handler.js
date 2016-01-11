@@ -13,15 +13,16 @@ exports.handleRequest = function (req, res) {
 var actions = {
   'GET': function(req, res){
     var done = finalhandler(req, res);
-    if (req.url === '/' || req.url === '/index.html') {
-      httpHelp.serveAssets(res,'index.html',function(data){
+    var url = req.url.length > 1 ? req.url : '';
+      httpHelp.serveAssets(res, url + '/index.html',function(data){
         res.writeHead(200,httpHelp.headers);
         res.end(JSON.stringify(data));
       });
-    } else {
+    // } else {
 
-      //httpHelp.serveAssets()
-    }
+
+    //   //httpHelp.serveAssets()
+    // }
   },
   'POST': function(req, res){
   },
